@@ -14,8 +14,8 @@ RUN apt-get update \
 ADD . /sawtooth
 RUN pip3 install /sawtooth/wheels/*.whl
 
-RUN pip3 install grpcio-tools \
-    && /sawtooth/bin/protogen \
-    && cd /sawtooth/sdk/python \
-    python3 setup.py install
+RUN pip3 install grpcio-tools   \
+    && /sawtooth/bin/protogen   \
+    && cd /sawtooth/sdk/python  \
+    && python3 setup.py install
 
