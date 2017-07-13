@@ -1,0 +1,52 @@
+#!/bin/bash -e 
+
+TAG=$1
+
+if [ -z ${TAG} ]
+then
+  echo "docker tag as the first argument pretty please"
+  exit 1
+fi
+
+
+BASE_IMAGE=ubuntu:17.04
+
+set -x
+
+SHA1=$(git rev-parse --short=12 HEAD)
+
+SAWTOOTH_DIR=$(cd $(dirname $(dirname $0)) && pwd)
+
+rm -rf ${SAWTOOTH_DIR}/wheels
+
+##
+## build the wheels for sawtooth_signing
+##
+
+docker run --rm -it             \
+   -v ${SAWTOOTH_DIR}:/sawtooth \
+   ${BASE_IMAGE}                \
+   /sawtooth/bin/build_wheels
+
+##
+## build the python sdk
+##
+
+docker build                                              \
+  --tag docker-internal.pokitdok.com/sawtooth-base:${TAG} \
+  --label intel.sawtooth-core.sha1=${SHA1}                \
+  -f Dockerfile.sdk                                       \
+  .
+
+##
+## build the validator
+##
+
+##
+## build the rest api
+##
+
+##
+## build the set
+##
+
