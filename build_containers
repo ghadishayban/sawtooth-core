@@ -47,6 +47,7 @@ function build_image () {
 
 docker build \
   --tag ${SAWTOOTH_IMAGE_NAME} \
+  --label intel.sawtooth-core.sha1=${SHA1} \
   - <<EOF
 
 FROM ${IMAGE}
