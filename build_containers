@@ -59,4 +59,5 @@ EOF
 build_image sawtooth-validator /sawtooth/validator
 build_image sawtooth-rest-api /sawtooth/rest_api
 build_image sawtooth-settings /sawtooth/families/settings
+build_image xo-python /sawtooth/sdk/examples/xo_python
 
