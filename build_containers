@@ -32,21 +32,30 @@ docker run --rm -it             \
 ## build the python sdk
 ##
 
+IMAGE=docker-internal.pokitdok.com/sawtooth-base:${TAG}
+
 docker build                                              \
-  --tag docker-internal.pokitdok.com/sawtooth-base:${TAG} \
+  --tag ${IMAGE}                                          \
   --label intel.sawtooth-core.sha1=${SHA1}                \
   -f Dockerfile.sdk                                       \
   .
 
-##
-## build the validator
-##
 
-##
-## build the rest api
-##
+function build_image () {
+   SAWTOOTH_IMAGE_NAME=docker-internal.pokitdok.com/$1
+   PYDIR=$2
 
-##
-## build the set
-##
+docker build \
+  --tag ${SAWTOOTH_IMAGE_NAME} \
+  - <<EOF
+
+FROM ${IMAGE}
+RUN cd ${PYDIR} && python3 setup.py install
+EOF
+
+}
+
+build_image sawtooth-validator /sawtooth/validator
+build_image sawtooth-rest-api /sawtooth/rest_api
+build_image sawtooth-settings /sawtooth/families_settings
 
