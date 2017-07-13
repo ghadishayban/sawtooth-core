@@ -42,7 +42,7 @@ docker build                                              \
 
 
 function build_image () {
-   SAWTOOTH_IMAGE_NAME=docker-internal.pokitdok.com/$1
+   SAWTOOTH_IMAGE_NAME=docker-internal.pokitdok.com/$1:${TAG}
    PYDIR=$2
 
 docker build \
