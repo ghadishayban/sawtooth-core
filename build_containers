@@ -57,5 +57,5 @@ EOF
 
 build_image sawtooth-validator /sawtooth/validator
 build_image sawtooth-rest-api /sawtooth/rest_api
-build_image sawtooth-settings /sawtooth/families_settings
+build_image sawtooth-settings /sawtooth/families/settings
 
